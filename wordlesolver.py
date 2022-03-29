@@ -1,5 +1,9 @@
+from curses import keyname
 import cyrtranslit
 import regex as re
+import streamlit as st
+
+st.title('Wordle solver for all languages')
 
 def filter5chars():
     file1 = open('sr-Latn.txt', 'r')
@@ -24,26 +28,20 @@ def filter5chars():
 def onSpot():
 
     guess_corr = ""
-    while True:
-        print("Unesi rec sa donjom crtom umesto slova (na mestu): ")
-        guess_corr = input()
+    guess_corr = st.text_input(label = "Unesi rec sa donjom crtom umesto slova (na mestu): ", key = "str1")
 
-        if (len(guess_corr) != 5):
-            print("Molim te unesi rec od 5 slova!")
-        else:
-            break
-
-    print("Unesi ostala pogodjena slova koja nisu mestu: ")
-    guess_valid = input()
+    guess_valid = st.text_input("Unesi ostala pogodjena slova koja nisu mestu: ", key = "str2")
     polu_pogodjena = list(guess_valid)
-    print("Unesi slova koja nisu u reči: ")
-    slova_nema = input()
+    slova_nema = st.text_input("Unesi slova koja nisu u reči: ", key = "str3")
     nema_ih = list(slova_nema)
     file3 = open('5_chars_words_LT.txt', 'r')
     Lines = file3.readlines()
     L = []
+    Z = []
     re_guess_corr = re.compile("^" + guess_corr.replace("_", ".") + "\n")
     count = 0
+    
+    
     for line in Lines:
         List1 = [e for e in nema_ih if e in line]
         
@@ -54,11 +52,15 @@ def onSpot():
 
         if re.match(re_guess_corr, line):
             if len(List) == (len(guess_valid)):
-                print(line)
+                # print(line)
+                Z.append(line)
                 count += 1
 
-        
-    print(str(count) + " results found.")
+    st.caption("Press enter to update!")
+    Z = [sub.replace('\n', '') for sub in Z]
+    for i in range(round(len(Z)/10)):
+        st.text('   '.join(Z[i*10:i*10+10]))
+    st.text(str(count) + " results found.")
 
 filter5chars()
 onSpot()
