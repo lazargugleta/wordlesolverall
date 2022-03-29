@@ -60,6 +60,8 @@ def onSpot():
     Z = [sub.replace('\n', '') for sub in Z]
     for i in range(round(len(Z)/10)):
         st.text('   '.join(Z[i*10:i*10+10]))
+    if len(Z) < 10:
+        st.text('   '.join(Z[0:10]))
     st.text(str(count) + " results found.")
 
 filter5chars()
