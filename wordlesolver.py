@@ -67,7 +67,7 @@ def onSpot():
     elif language == "English":
         file_name = "wordle-nyt.txt"
     elif language == "German":
-        file_name == "german-5.txt"
+        file_name = "german-5.txt"
     file3 = open(file_name, 'r')
     Lines = file3.readlines()
     L = []
