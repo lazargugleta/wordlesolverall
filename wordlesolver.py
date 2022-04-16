@@ -3,7 +3,9 @@ import cyrtranslit
 import regex as re
 import streamlit as st
 
+st.set_page_config(page_title='Wordle solver all languages',page_icon = "wordle.png", layout = 'centered')
 st.title('Wordle solver for all languages')
+
 
 language = st.selectbox(
      'Please select the language.',
@@ -90,12 +92,27 @@ def onSpot():
                 Z.append(line)
                 count += 1
 
-    st.caption("Press enter to update!")
+    update_text = ""
+    if language == "Serbian":
+        update_text = "Pritisnite enter da ažurirate!"
+    elif language == "English":
+        update_text = "Press enter to update!"
+    elif language == "German":
+        update_text = "Drücken Sie die Eingabetaste, um zu aktualisieren!"
+    st.caption(update_text)
     Z = [sub.replace('\n', '') for sub in Z]
     for i in range(round(len(Z)/10)):
         st.text('   '.join(Z[i*10:i*10+10]))
     if len(Z) < 10:
         st.text('   '.join(Z[0:10]))
+
+    results_num_text = ""
+    if language == "Serbian":
+        results_num_text = " pronađenih rezultata."
+    elif language == "English":
+        results_num_text = " results found."
+    elif language == "German":
+        results_num_text = " gefundene Ergebnisse."
     st.text(str(count) + " results found.")
 
 filter5chars()
