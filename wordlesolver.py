@@ -5,6 +5,12 @@ import streamlit as st
 
 st.title('Wordle solver for all languages')
 
+language = st.selectbox(
+     'Please select the language.',
+     ('English', 'German', 'Serbian'))
+
+# st.write('You selected:', language)
+
 def filter5chars():
     file1 = open('sr-Latn.txt', 'r')
     Lines = file1.readlines()
@@ -27,14 +33,42 @@ def filter5chars():
 
 def onSpot():
 
-    guess_corr = ""
-    guess_corr = st.text_input(label = "Unesi rec sa donjom crtom umesto slova (na mestu): ", key = "str1")
+    guess_corr_text = ""
+    if language == "English":
+        guess_corr_text = "Placed letters"
+    elif language == "German":
+        guess_corr_text = "Buchstaben platziert"
+    else:
+        guess_corr_text = "Unesi rec sa donjom crtom umesto slova (na mestu)"
+    guess_corr = st.text_input(label = guess_corr_text, key = "str1")
 
-    guess_valid = st.text_input("Unesi ostala pogodjena slova koja nisu mestu: ", key = "str2")
+    guess_valid_text = ""
+    if language == "English":
+        guess_valid_text = "Valid letters"
+    elif language == "German":
+        guess_valid_text = "Gültige Briefe"
+    elif language == "Serbian":
+        guess_valid_text = "Unesi ostala pogodjena slova koja nisu mestu"
+    guess_valid = st.text_input(guess_valid_text, key = "str2")
     polu_pogodjena = list(guess_valid)
-    slova_nema = st.text_input("Unesi slova koja nisu u reči: ", key = "str3")
+    
+    slova_nema_text = ""
+    if language == "English":
+        slova_nema_text = "Bad letters"
+    elif language == "German":
+        slova_nema_text = "Schlechte Buchstaben"
+    elif language == "Serbian":
+        slova_nema_text = "Slova koja nisu u reči"
+    slova_nema = st.text_input(slova_nema_text, key = "str3")
     nema_ih = list(slova_nema)
-    file3 = open('5_chars_words_LT.txt', 'r')
+    file_name = ""
+    if language == "Serbian":
+        file_name = "5_chars_words_LT.txt"
+    elif language == "English":
+        file_name = "wordle-nyt.txt"
+    elif language == "German":
+        file_name == "german-5.txt"
+    file3 = open(file_name, 'r')
     Lines = file3.readlines()
     L = []
     Z = []
