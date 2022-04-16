@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+streamlit = "*"
+cyrtranslit = "*"
+click = "==8.0.4"
+regex = "*"
+streamlit-autorefresh = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"
