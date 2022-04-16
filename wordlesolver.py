@@ -4,9 +4,9 @@ import regex as re
 import streamlit as st
 
 st.set_page_config(page_title='Wordle solver all languages',page_icon = "wordle.png", layout = 'centered')
-col1, col2, col3 = st.columns(3)
-with col2:
-    st.image('wordle.png', width = 100)
+col1, col2, col3, col4, col5 = st.columns(5)
+with col3:
+    st.image('wordle.png', width = 120)
 st.title('Wordle solver for all languages')
 
 language = st.selectbox(
