@@ -14,3 +14,4 @@ streamlit-autorefresh = "*"
 
 [requires]
 python_version = "3.8"
+typing-extensions = { version = "*", markers = "python_version < '3.8'" }
