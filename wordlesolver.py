@@ -1,4 +1,5 @@
 from curses import keyname
+from math import ceil
 import cyrtranslit
 import regex as re
 import streamlit as st
@@ -9,11 +10,19 @@ with col3:
     st.image('wordle.png', width = 120)
 st.title('Wordle solver for all languages')
 
+select_lang_text = "Please select the language"
+
 language = st.selectbox(
-     'Please select the language.',
+     select_lang_text,
      ('English', 'German', 'Serbian'))
 
-# st.write('You selected:', language)
+if language == "English":
+    select_lang_text = 'Please select the language'
+elif language == "German":
+    select_lang_text = "Bitte wählen Sie die Sprache aus"
+else:
+    select_lang_text = "Izaberi jezik"
+
 
 def filter5chars():
     file1 = open('sr-Latn.txt', 'r')
@@ -103,10 +112,14 @@ def onSpot():
         update_text = "Drücken Sie die Eingabetaste, um zu aktualisieren!"
     st.caption(update_text)
     Z = [sub.replace('\n', '') for sub in Z]
-    for i in range(round(len(Z)/10)):
-        st.text('   '.join(Z[i*10:i*10+10]))
+    smaller = False
     if len(Z) < 10:
         st.text('   '.join(Z[0:10]))
+        smaller = True
+    for i in range(ceil(len(Z)/10)):
+        if smaller == True:
+            break
+        st.text('   '.join(Z[i*10:i*10+10]))
 
     results_num_text = ""
     if language == "Serbian":
